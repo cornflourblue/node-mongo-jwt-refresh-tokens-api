@@ -1,4 +1,4 @@
 ﻿{
-    "connectionString": "mongodb://localhost/node-mongo-jwt-refresh-tokens-api",
-    "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
+    "connectionString": "mongodb+srv://soural:0KnTQwIhLv7nfRPA@cluster0.ng8ky.mongodb.net/users",
+    "secret": "hjkvgcvbnljkhuhgjfhjhguyf"
 }
