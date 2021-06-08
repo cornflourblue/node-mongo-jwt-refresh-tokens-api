@@ -4,6 +4,11 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    email:{type:String},
+    wordTranslated:{type:Number},
+    totalWord:{type:Number},
+    paidWord:{type:Number},
+    costPerWord:{type:Number},
     username: { type: String, unique: true, required: true },
     passwordHash: { type: String, required: true },
     role: { type: String, required: true }

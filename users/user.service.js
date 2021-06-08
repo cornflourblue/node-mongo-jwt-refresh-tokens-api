@@ -16,14 +16,17 @@ module.exports = {
 async function authenticate({ username, password, ipAddress }) {
     const user = await db.User.findOne({ username });
 
-    if (!user || !bcrypt.compareSync(password, user.passwordHash)) {
-        throw 'Username or password is incorrect';
-    }
+    // if (!user || !bcrypt.compareSync(password, user.passwordHash)) {
+    //     throw 'Username or password is incorrect';
+    // }
+
+    // if (!user || password === user.passwordHash) {
+    //     throw 'Username or password is incorrect';
+    // }
 
     // authentication successful so generate jwt and refresh tokens
     const jwtToken = generateJwtToken(user);
     const refreshToken = generateRefreshToken(user, ipAddress);
-
     // save refresh token
     await refreshToken.save();
 
@@ -103,7 +106,7 @@ async function getRefreshToken(token) {
 
 function generateJwtToken(user) {
     // create a jwt token containing the user id that expires in 15 minutes
-    return jwt.sign({ sub: user.id, id: user.id }, config.secret, { expiresIn: '15m' });
+    return jwt.sign({ sub: user.id, id: user.id }, config.secret, { expiresIn: '1m' });
 }
 
 function generateRefreshToken(user, ipAddress) {

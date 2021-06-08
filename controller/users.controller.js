@@ -5,29 +5,34 @@ const validateRequest = require('../validator/index');
 const schema = require('../validator/user.schema');
 const authorize = require('_middleware/authorize')
 const Role = require('_helpers/role');
-const userService = require('./user.service');
+const userService = require('../users/user.service');
 
 module.exports = {
     authenticate,
     refreshToken,
-    getById,
+    getAll,
     getRefreshTokens,
+    getById,
+    revokeToken
 }
 
 
 function authenticate(req, res, next) {
     const { username, password } = req.body;
     const ipAddress = req.ip;
+
     userService.authenticate({ username, password, ipAddress })
         .then(({ refreshToken, ...user }) => {
-            setTokenCookie(res, refreshToken);
+            setTokenCookie(req,res, refreshToken);
             res.json(user);
         })
         .catch(next);
 }
 
 function refreshToken(req, res, next) {
+    console.log('refreshToken')
     const token = req.cookies.refreshToken;
+    console.log(req.cookies)
     const ipAddress = req.ip;
     userService.refreshToken({ token, ipAddress })
         .then(({ refreshToken, ...user }) => {
@@ -35,13 +40,6 @@ function refreshToken(req, res, next) {
             res.json(user);
         })
         .catch(next);
-}
-
-function revokeTokenSchema(req, res, next) {
-    const schema = Joi.object({
-        token: Joi.string().empty('')
-    });
-    validateRequest(req, next, schema);
 }
 
 function revokeToken(req, res, next) {
@@ -91,12 +89,15 @@ function getRefreshTokens(req, res, next) {
 
 // helper functions
 
-function setTokenCookie(res, token)
+function setTokenCookie(req,res, token)
 {
     // create http only cookie with refresh token that expires in 7 days
     const cookieOptions = {
         httpOnly: true,
         expires: new Date(Date.now() + 7*24*60*60*1000)
     };
+    // res.header('Access-Control-Allow-Origin', req.headers.origin);
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.cookie('refreshToken', token, cookieOptions);
 }

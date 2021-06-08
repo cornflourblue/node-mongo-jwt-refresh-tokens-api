@@ -5,8 +5,7 @@ const db = require('_helpers/db');
 module.exports = authorize;
 
 function authorize(roles = []) {
-    // roles param can be a single role string (e.g. Role.User or 'User') 
-    // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
+
     if (typeof roles === 'string') {
         roles = [roles];
     }
@@ -26,8 +25,10 @@ function authorize(roles = []) {
 
             // authentication and authorization successful
             req.user.role = user.role;
+
             const refreshTokens = await db.RefreshToken.find({ user: user.id });
             req.user.ownsToken = token => !!refreshTokens.find(x => x.token === token);
+
             next();
         }
     ];
