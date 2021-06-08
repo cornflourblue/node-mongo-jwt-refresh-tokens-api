@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@localhost">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.20">
+    <root id="1">
+      <ServerVersion>4.4.2</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="admin"/>
+    <schema id="3" parent="1" name="blog"/>
+    <schema id="4" parent="1" name="config"/>
+    <schema id="5" parent="1" name="ecommerce"/>
+    <schema id="6" parent="1" name="ecommerce10"/>
+    <schema id="7" parent="1" name="ecommerce11"/>
+    <schema id="8" parent="1" name="ecommerce15"/>
+    <schema id="9" parent="1" name="ecommerce16"/>
+    <schema id="10" parent="1" name="ecommerce2"/>
+    <schema id="11" parent="1" name="ecommerce20"/>
+    <schema id="12" parent="1" name="local"/>
+    <schema id="13" parent="1" name="node-mongo-jwt-refresh-tokens-api"/>
+    <schema id="14" parent="1" name="pre6"/>
+    <schema id="15" parent="1" name="task-manager-api"/>
+    <schema id="16" parent="1" name="task-manager-api-test"/>
+  </database-model>
+</dataSource>
